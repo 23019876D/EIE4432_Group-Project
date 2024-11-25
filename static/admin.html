@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Admin Navigation</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+    <style>
+      /* Full height layout setup */
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .main-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-block {
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        font-size: 1.2rem;
+        text-decoration: none;
+        color: #000;
+        cursor: pointer;
+      }
+      .nav-block:hover {
+        background-color: grey;
+      }
+      footer {
+        bottom: 0%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="text-center py-3">
+      <h1>Admin Dashboard</h1>
+    </header>
+    <div class="main-container">
+      <div class="container text-center">
+        <h2>Welcome back admin!</h2>
+      </div>
+      <div class="container py-5">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col">
+            <a onclick="window.open('seat_manage.html', '_self')" class="card nav-block shadow-sm">
+              <div class="card-body text-center">
+                <h5 class="card-title">Seat Management</h5>
+              </div>
+            </a>
+          </div>
+          <div class="col">
+            <a onclick="window.open('eventmanage.html', '_self')" class="card nav-block shadow-sm">
+              <div class="card-body text-center">
+                <h5 class="card-title">Event Management</h5>
+              </div>
+            </a>
+          </div>
+          <div class="col">
+            <a onclick="window.open('usermanage.html', '_self')" class="card nav-block shadow-sm">
+              <div class="card-body text-center">
+                <h5 class="card-title">User Management</h5>
+              </div>
+            </a>
+          </div>
+          <div class="col">
+            <a class="card nav-block shadow-sm text-danger">
+              <div class="card-body text-center" id="logoutBtn">
+                <h5 class="card-title">Logout</h5>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p class="text-center pt-3 pb-2 m-0">&copy; 23064267d@23019876d_Football Ticket Sales System</p>
+      <p class="text-center pb-3 m-0"><span id="time"></span></p>
+    </footer>
+    <script class="bg-black text-white text-center py-3 m-0">
+      function updateTime() {
+        document.getElementById('time').textContent = new Date().toLocaleString('en-HK', {
+          timeZone: 'Asia/Hong_Kong',
+        });
+      }
+      setInterval(updateTime, 1000);
+      updateTime();
+
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        const confirmed = confirm('Confirm to logout?');
+
+        if (confirmed) {
+          try {
+            const response = await fetch('/auth/logout', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+
+            if (response.ok) {
+              alert('You have been logged out successfully.');
+              window.open('/index.html', '_self');
+            }
+          } catch (error) {
+            console.error('Error logging out:', error);
+            alert('An unknown error occurred during logout');
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

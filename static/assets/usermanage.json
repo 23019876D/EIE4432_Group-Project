@@ -1,0 +1,16 @@
+[
+    {
+        "username": "User123",
+        "role": "user",
+        "email": "user@example.com",
+        "password": "12345678",
+        "profileimage": "assets/profile_image1.jpg"
+    },
+    {
+        "username": "admin1",
+        "role": "admin",
+        "email": "admin@example.com",
+        "password": "admin123",
+        "profileimage": "assets/profile_image1.jpg"
+    }
+]

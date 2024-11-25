@@ -1,0 +1,56 @@
+[
+  {
+    "matchId": "01",
+    "matchName": "Russia vs Saudi Arabia",
+    "status": "BuyNow",
+    "date": "2024-11-10T14:00:00Z",
+    "venue": "Luzhniki Stadium, Moscow",
+    "description": "The opening match of the tournament, featuring the host nation Russia going up against Saudi Arabia. Held at the iconic Luzhniki Stadium.",
+    "matchimage": "assets/Russia-VS-Saudi-Arabia.jpg"
+  },
+  {
+    "matchId": "02",
+    "matchName": "Brazil vs Costa Rica",
+    "status": "Upcoming",
+    "date": "2024-11-10T14:00:00Z",
+    "venue": "Saint Petersburg Stadium, Saint Petersburg",
+    "description": "A thrilling match as Brazil faces Costa Rica, showcasing some of the best talents from South America and Central America.",
+    "matchimage": "assets/Brazil-VS-Costa-Rica.png"
+  },
+  {
+    "matchId": "03",
+    "matchName": "Iran vs Portugal",
+    "status": "Upcoming",
+    "date": "2024-11-10T14:00:00Z",
+    "venue": "Mordovia Arena, Saransk",
+    "description": "An intense clash between Iran and Portugal, as Portugal aims to progress in the tournament led by their star players.",
+    "matchimage": "assets/Iran-VS-Portugal.jpeg"
+  },
+  {
+    "matchId": "04",
+    "matchName": "Mexico vs Sweden",
+    "status": "Upcoming",
+    "date": "2024-11-10T14:00:00Z",
+    "venue": "Ekaterinburg Arena, Ekaterinburg",
+    "description": "A decisive group stage match between Mexico and Sweden, both looking to secure a spot in the next round.",
+    "matchimage": "assets/Mexico-VS-Sweden.jpeg"
+  },
+  {
+    "matchId": "05",
+    "matchName": "France vs Australia",
+    "status": "Upcoming",
+    "date": "2024-11-10T14:00:00Z",
+    "venue": "Kazan Arena, Kazan",
+    "description": "France takes on Australia in this highly anticipated match, with France hoping to showcase their championship potential.",
+    "matchimage": "assets/France-VS-Australia.jpeg"
+  },
+  {
+    "matchId": "06",
+    "matchName": "Croatia vs Denmark",
+    "status": "Upcoming",
+    "date": "2024-11-12T16:00:00Z",
+    "venue": "Nizhny Novgorod Stadium, Nizhny Novgorod",
+    "description": "An exciting encounter between Croatia and Denmark, as both teams bring their unique style to the tournament stage.",
+    "matchimage": "assets/Croatia-vs-Denmark.jpeg"
+  }
+]

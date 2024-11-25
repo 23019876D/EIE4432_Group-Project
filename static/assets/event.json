@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Russia vs Saudi Arabia",
+        "type": "BuyNow",
+        "time": "2024-02-03",
+        "image": "assets/Russia-VS-Saudi-Arabia.jpg"
+    },
+    {
+        "name": "Brazil vs Costa Rica",
+        "type": "Upcoming",
+        "time": "2024-02-03",
+        "image": "assets/Brazil-VS-Costa-Rica.png"
+    },
+    {
+        "name": "Iran vs Portugal",
+        "type": "Upcoming",
+        "time": "2024-02-03",
+        "image": "assets/Iran-VS-Portugal.jpeg"
+    },
+    {
+        "name": "Mexico vs Sweden",
+        "type": "Upcoming",
+        "time": "2024-02-03",
+        "image": "assets/Mexico-VS-Sweden.jpeg"
+    },
+    {
+        "name": "France vs Australia",
+        "type": "Upcoming",
+        "time": "2024-02-03",
+        "image": "assets/France-VS-Australia.jpeg"
+    },
+    {
+        "name": "Croatia vs Denmark",
+        "type": "Upcoming",
+        "time": "2024-02-03",
+        "image": "assets/Croatia-vs-Denmark.jpeg"
+    }
+]

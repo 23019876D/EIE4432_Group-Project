@@ -1,0 +1,280 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+      }
+      header,
+      header h1 {
+        margin: 0;
+      }
+      .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+      .image-container {
+        position: relative;
+        width: 520px;
+      }
+      .image-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .confirm-button-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+      }
+      .seat {
+        fill: transparent;
+        stroke: black;
+        stroke-width: 2;
+        cursor: pointer;
+      }
+      .back-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+      }
+      .next-button {
+        position: absolute;
+        top: 80px;
+        left: 20px;
+      }
+      footer {
+        text-align: center;
+        padding: 10px 0;
+        background-color: #ffffff;
+        border-top: 1px solid #fbfcfd;
+        width: 100%;
+      }
+      .booked {
+        fill: red !important;
+        cursor: not-allowed;
+      }
+      .seat.temporary {
+        background-color: green;
+      }
+      .seat {
+        fill: transparent;
+        stroke: black;
+        stroke-width: 2;
+        cursor: pointer;
+      }
+
+      .booked {
+        fill: red !important;
+        cursor: not-allowed;
+      }
+
+      .selected {
+        fill: green !important;
+      }
+
+      .confirmed {
+        fill: green !important;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="text-center py-3">
+      <h1>Football Ticket Sales System</h1>
+    </header>
+    <div>
+      <button class="btn btn-secondary back-button" onclick="window.location.href='event.html';">Back</button>
+      <button class="btn btn-primary next-button" onclick="window.location.href='payment.html';">Next</button>
+    </div>
+    <div class="container text-center">
+      <div class="image-container">
+        <img src="assets/football-field.jpeg" alt="Event Image" />
+        <!-- Surrounding seats as SVG rectangles positioned outside the image -->
+        <svg width="750" height="750" style="position: absolute; top: -110px; left: -110px">
+          <!-- North (2x10 squares) positioned above the image -->
+          <g transform="translate(135, 20)">
+            <!-- First row -->
+            <rect id="N1R1" class="seat" x="0" y="0" width="25" height="25"></rect>
+            <text x="12.5" y="15" text-anchor="middle" font-size="10">1</text>
+            <rect id="N1R2" class="seat" x="50" y="0" width="25" height="25"></rect>
+            <text x="62.5" y="15" text-anchor="middle" font-size="10">2</text>
+            <rect id="N1R3" class="seat" x="100" y="0" width="25" height="25"></rect>
+            <text x="112.5" y="15" text-anchor="middle" font-size="10">3</text>
+            <rect id="N1R4" class="seat" x="150" y="0" width="25" height="25"></rect>
+            <text x="162.5" y="15" text-anchor="middle" font-size="10">4</text>
+            <rect id="N1R5" class="seat" x="200" y="0" width="25" height="25"></rect>
+            <text x="212.5" y="15" text-anchor="middle" font-size="10">5</text>
+            <rect id="N1R6" class="seat" x="250" y="0" width="25" height="25"></rect>
+            <text x="262.5" y="15" text-anchor="middle" font-size="10">6</text>
+            <rect id="N1R7" class="seat" x="300" y="0" width="25" height="25"></rect>
+            <text x="312.5" y="15" text-anchor="middle" font-size="10">7</text>
+            <rect id="N1R8" class="seat" x="350" y="0" width="25" height="25"></rect>
+            <text x="362.5" y="15" text-anchor="middle" font-size="10">8</text>
+            <rect id="N1R9" class="seat" x="400" y="0" width="25" height="25"></rect>
+            <text x="412.5" y="15" text-anchor="middle" font-size="10">9</text>
+            <rect id="N1R10" class="seat" x="450" y="0" width="25" height="25"></rect>
+            <text x="462.5" y="15" text-anchor="middle" font-size="10">10</text>
+            <!-- Second row -->
+            <rect id="N2R1" class="seat" x="0" y="50" width="25" height="25"></rect>
+            <text x="12.5" y="65" text-anchor="middle" font-size="10">11</text>
+            <rect id="N2R2" class="seat" x="50" y="50" width="25" height="25"></rect>
+            <text x="62.5" y="65" text-anchor="middle" font-size="10">12</text>
+            <rect id="N2R3" class="seat" x="100" y="50" width="25" height="25"></rect>
+            <text x="112.5" y="65" text-anchor="middle" font-size="10">13</text>
+            <rect id="N2R4" class="seat" x="150" y="50" width="25" height="25"></rect>
+            <text x="162.5" y="65" text-anchor="middle" font-size="10">14</text>
+            <rect id="N2R5" class="seat" x="200" y="50" width="25" height="25"></rect>
+            <text x="212.5" y="65" text-anchor="middle" font-size="10">15</text>
+            <rect id="N2R6" class="seat" x="250" y="50" width="25" height="25"></rect>
+            <text x="262.5" y="65" text-anchor="middle" font-size="10">16</text>
+            <rect id="N2R7" class="seat" x="300" y="50" width="25" height="25"></rect>
+            <text x="312.5" y="65" text-anchor="middle" font-size="10">17</text>
+            <rect id="N2R8" class="seat" x="350" y="50" width="25" height="25"></rect>
+            <text x="362.5" y="65" text-anchor="middle" font-size="10">18</text>
+            <rect id="N2R9" class="seat" x="400" y="50" width="25" height="25"></rect>
+            <text x="412.5" y="65" text-anchor="middle" font-size="10">19</text>
+            <rect id="N2R10" class="seat" x="450" y="50" width="25" height="25"></rect>
+            <text x="462.5" y="65" text-anchor="middle" font-size="10">20</text>
+          </g>
+
+          <!-- South (2x10 squares) positioned below the image -->
+          <g transform="translate(130, 500)">
+            <!-- First row -->
+            <rect id="S1R1" class="seat" x="0" y="0" width="25" height="25"></rect>
+            <text x="12.5" y="15" text-anchor="middle" font-size="10">21</text>
+            <rect id="S1R2" class="seat" x="50" y="0" width="25" height="25"></rect>
+            <text x="62.5" y="15" text-anchor="middle" font-size="10">22</text>
+            <rect id="S1R3" class="seat" x="100" y="0" width="25" height="25"></rect>
+            <text x="112.5" y="15" text-anchor="middle" font-size="10">23</text>
+            <rect id="S1R4" class="seat" x="150" y="0" width="25" height="25"></rect>
+            <text x="162.5" y="15" text-anchor="middle" font-size="10">24</text>
+            <rect id="S1R5" class="seat" x="200" y="0" width="25" height="25"></rect>
+            <text x="212.5" y="15" text-anchor="middle" font-size="10">25</text>
+            <rect id="S1R6" class="seat" x="250" y="0" width="25" height="25"></rect>
+            <text x="262.5" y="15" text-anchor="middle" font-size="10">26</text>
+            <rect id="S1R7" class="seat" x="300" y="0" width="25" height="25"></rect>
+            <text x="312.5" y="15" text-anchor="middle" font-size="10">27</text>
+            <rect id="S1R8" class="seat" x="350" y="0" width="25" height="25"></rect>
+            <text x="362.5" y="15" text-anchor="middle" font-size="10">28</text>
+            <rect id="S1R9" class="seat" x="400" y="0" width="25" height="25"></rect>
+            <text x="412.5" y="15" text-anchor="middle" font-size="10">29</text>
+            <rect id="S1R10" class="seat" x="450" y="0" width="25" height="25"></rect>
+            <text x="462.5" y="15" text-anchor="middle" font-size="10">30</text>
+            <!-- Second row -->
+            <rect id="S2R1" class="seat" x="0" y="50" width="25" height="25"></rect>
+            <text x="12.5" y="65" text-anchor="middle" font-size="10">31</text>
+            <rect id="S2R2" class="seat" x="50" y="50" width="25" height="25"></rect>
+            <text x="62.5" y="65" text-anchor="middle" font-size="10">32</text>
+            <rect id="S2R3" class="seat" x="100" y="50" width="25" height="25"></rect>
+            <text x="112.5" y="65" text-anchor="middle" font-size="10">33</text>
+            <rect id="S2R4" class="seat" x="150" y="50" width="25" height="25"></rect>
+            <text x="162.5" y="65" text-anchor="middle" font-size="10">34</text>
+            <rect id="S2R5" class="seat" x="200" y="50" width="25" height="25"></rect>
+            <text x="212.5" y="65" text-anchor="middle" font-size="10">35</text>
+            <rect id="S2R6" class="seat" x="250" y="50" width="25" height="25"></rect>
+            <text x="262.5" y="65" text-anchor="middle" font-size="10">36</text>
+            <rect id="S2R7" class="seat" x="300" y="50" width="25" height="25"></rect>
+            <text x="312.5" y="65" text-anchor="middle" font-size="10">37</text>
+            <rect id="S2R8" class="seat" x="350" y="50" width="25" height="25"></rect>
+            <text x="362.5" y="65" text-anchor="middle" font-size="10">38</text>
+            <rect id="S2R9" class="seat" x="400" y="50" width="25" height="25"></rect>
+            <text x="412.5" y="65" text-anchor="middle" font-size="10">39</text>
+            <rect id="S2R10" class="seat" x="450" y="50" width="25" height="25"></rect>
+            <text x="462.5" y="65" text-anchor="middle" font-size="10">40</text>
+          </g>
+
+          <!-- East (5x2 squares) positioned to the right of the image -->
+          <g transform="translate(650, 194)">
+            <rect id="E1R1" class="seat" x="0" y="0" width="25" height="25"></rect>
+            <text x="12.5" y="15" text-anchor="middle" font-size="10">V1</text>
+            <rect id="E1R2" class="seat" x="0" y="50" width="25" height="25"></rect>
+            <text x="12.5" y="65" text-anchor="middle" font-size="10">V2</text>
+            <rect id="E1R3" class="seat" x="0" y="100" width="25" height="25"></rect>
+            <text x="12.5" y="115" text-anchor="middle" font-size="10">V3</text>
+            <rect id="E1R4" class="seat" x="0" y="150" width="25" height="25"></rect>
+            <text x="12.5" y="165" text-anchor="middle" font-size="10">V4</text>
+            <rect id="E1R5" class="seat" x="0" y="200" width="25" height="25"></rect>
+            <text x="12.5" y="215" text-anchor="middle" font-size="10">V5</text>
+            <rect id="E2R1" class="seat" x="50" y="0" width="25" height="25"></rect>
+            <text x="62.5" y="15" text-anchor="middle" font-size="10">V6</text>
+            <rect id="E2R2" class="seat" x="50" y="50" width="25" height="25"></rect>
+            <text x="62.5" y="65" text-anchor="middle" font-size="10">V7</text>
+            <rect id="E2R3" class="seat" x="50" y="100" width="25" height="25"></rect>
+            <text x="62.5" y="115" text-anchor="middle" font-size="10">V8</text>
+            <rect id="E2R4" class="seat" x="50" y="150" width="25" height="25"></rect>
+            <text x="62.5" y="165" text-anchor="middle" font-size="10">V9</text>
+            <rect id="E2R5" class="seat" x="50" y="200" width="25" height="25"></rect>
+            <text x="62.5" y="215" text-anchor="middle" font-size="10">V10</text>
+          </g>
+
+          <!-- West (5x2 squares) positioned to the left of the image -->
+          <g transform="translate(10, 194)">
+            <rect id="W1R1" class="seat" x="0" y="0" width="25" height="25"></rect>
+            <text x="12.5" y="15" text-anchor="middle" font-size="10">V11</text>
+            <rect id="W1R2" class="seat" x="0" y="50" width="25" height="25"></rect>
+            <text x="12.5" y="65" text-anchor="middle" font-size="10">V12</text>
+            <rect id="W1R3" class="seat" x="0" y="100" width="25" height="25"></rect>
+            <text x="12.5" y="115" text-anchor="middle" font-size="10">V13</text>
+            <rect id="W1R4" class="seat" x="0" y="150" width="25" height="25"></rect>
+            <text x="12.5" y="165" text-anchor="middle" font-size="10">V14</text>
+            <rect id="W1R5" class="seat" x="0" y="200" width="25" height="25"></rect>
+            <text x="12.5" y="215" text-anchor="middle" font-size="10">V15</text>
+            <rect id="W2R1" class="seat" x="50" y="0" width="25" height="25"></rect>
+            <text x="62.5" y="15" text-anchor="middle" font-size="10">V16</text>
+            <rect id="W2R2" class="seat" x="50" y="50" width="25" height="25"></rect>
+            <text x="62.5" y="65" text-anchor="middle" font-size="10">V17</text>
+            <rect id="W2R3" class="seat" x="50" y="100" width="25" height="25"></rect>
+            <text x="62.5" y="115" text-anchor="middle" font-size="10">V18</text>
+            <rect id="W2R4" class="seat" x="50" y="150" width="25" height="25"></rect>
+            <text x="62.5" y="165" text-anchor="middle" font-size="10">V19</text>
+            <rect id="W2R5" class="seat" x="50" y="200" width="25" height="25"></rect>
+            <text x="62.5" y="215" text-anchor="middle" font-size="10">V20</text>
+          </g>
+        </svg>
+      </div>
+      <div class="confirm-button-container">
+        <button id="confirm-btn" class="btn btn-success">Confirm Booking</button>
+        <button id="dismiss-btn" class="btn btn-danger">Cancel</button>
+      </div>
+    </div>
+    <div style="padding-left: 20px">
+      <p id="selected-seat" styles="font-weight: bold; color: blue; padding-top: 10px">Selected Seat</p>
+      <p id="total-price" style="font-weight: bold; color: green; padding-top: 10px">Total Price: $0</p>
+    </div>
+
+    <footer>
+      <p class="text-center pt-3 pb-2 m-0">&copy; 23064267d@23019876d_Football Ticket Sales System</p>
+      <p class="text-center pb-3 m-0"><span id="time"></span></p>
+    </footer>
+    <script class="bg-black text-white text-center py-3 m-0">
+      function updateTime() {
+        document.getElementById('time').textContent = new Date().toLocaleString('en-HK', {
+          timeZone: 'Asia/Hong_Kong',
+        });
+      }
+      setInterval(updateTime, 1000);
+      updateTime();
+    </script>
+    <script src="js/sales.js"></script>
+  </body>
+</html>
