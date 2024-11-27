@@ -77,23 +77,6 @@ async function fetch_transaction(matchId, seat) {
   }
 }
 
-async function modify_transaction(matchId, seat, updates) {
-  console.log(`Modifying transaction: matchId=${matchId}, seat=${seat}, updates=${JSON.stringify(updates)}`);
-  try {
-    const result = await transactions.updateOne({ matchId, seat }, { $set: updates }, { upsert: false });
-    if (result.modifiedCount > 0) {
-      console.log('Updated transaction successfully');
-      return true;
-    } else {
-      console.log('No changes made to the transaction');
-      return false;
-    }
-  } catch (error) {
-    console.error('Unable to modify the transaction data!', error);
-    return false;
-  }
-}
-
 async function fetch_user_transactions(userid) {
   try {
     const transaction = await transactions.find({ userid }).toArray();
@@ -107,6 +90,37 @@ async function fetch_user_transactions(userid) {
   }
 }
 
+async function save_transaction(transaction) {
+  try {
+    const result = await transactions.insertOne(transaction);
+    return result.insertedId ? true : false;
+  } catch (error) {
+    console.error('Error saving transaction:', error);
+    return false;
+  }
+}
+
+async function modify_transaction(matchid, seat, userid, updates) {
+  console.log(
+    `Updating transaction: matchId=${matchid}, seat=${seat}, userId=${userid}, updates=${JSON.stringify(updates)}`
+  );
+  try {
+    const result = await transactions.updateOne({ matchid, seat, userid }, { $set: updates });
+    console.log('Transaction Update Result:', result);
+    return result;
+  } catch (error) {
+    console.error('Error modifying transaction:', error);
+    return false;
+  }
+}
+
 init_db().catch(console.dir);
 
-export { create_transaction, fetch_all_transaction, fetch_transaction, modify_transaction, fetch_user_transactions };
+export {
+  create_transaction,
+  fetch_all_transaction,
+  fetch_transaction,
+  modify_transaction,
+  fetch_user_transactions,
+  save_transaction,
+};

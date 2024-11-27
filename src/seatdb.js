@@ -69,6 +69,7 @@ async function modify_seat(matchId, seat, updates) {
   console.log(`Modifying seat: matchId=${matchId}, seat=${seat}, updates=${JSON.stringify(updates)}`);
   try {
     const result = await seats.updateOne({ matchId, seat }, { $set: updates }, { upsert: false });
+    console.log('Modify Seat Result:', result);
     if (result.modifiedCount > 0) {
       console.log('Updated seat successfully');
       return true;

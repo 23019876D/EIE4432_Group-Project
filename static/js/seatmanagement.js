@@ -1,4 +1,4 @@
-let allEvents = [];
+let allMatches = [];
 
 $(document).ready(async function () {
   const isLoggedIn = await checkLoginStatus();
@@ -12,18 +12,19 @@ $(document).ready(async function () {
   $('#search-bar').on('input', function () {
     const searchTerm = $(this).val().toLowerCase();
     if (searchTerm) {
-      const filteredEvents = allEvents.filter((event) => event.matchName.toLowerCase().includes(searchTerm));
-      displayEvents(filteredEvents);
+      const filteredMatches = allMatches.filter((match) => match.matchName.toLowerCase().includes(searchTerm));
+      displayMatches(filteredMatches);
     } else {
-      displayEvents(allEvents);
+      displayMatches(allMatches);
     }
   });
 });
 
 function fetchMatches() {
   $.get('/matches/events', function (data) {
-    allEvents = data;
-    displayEvents(allEvents);
+    // Filter only "BuyNow" status matches
+    allMatches = data.filter((match) => match.status === 'BuyNow');
+    displayMatches(allMatches);
   }).fail(function (error) {
     let errorMessage = `
         <div class="alert alert-danger d-flex w-100">
@@ -53,40 +54,30 @@ async function checkLoginStatus() {
   }
 }
 
-function handleClick(status, matchId) {
-  if (status === 'BuyNow') {
-    window.location.href = `sales.html?matchId=${matchId}`;
-  } else {
-    alert('This match is currently not available for purchase.');
-  }
+function handleClick(matchId) {
+  // Redirect to the seat management page for the selected match
+  window.location.href = `admin_seat.html?matchId=${matchId}`;
 }
 
-function displayEvents(data) {
+function displayMatches(data) {
   const sortedData = data.sort((a, b) => {
-    if (a.status === 'BuyNow' && b.status !== 'BuyNow') {
-      return -1;
-    }
-    if (a.status !== 'BuyNow' && b.status === 'BuyNow') {
-      return 1;
-    }
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
     return dateA - dateB;
   });
   $('#match-list').empty();
   data.forEach(function (match) {
-    let badgeColor = match.status === 'BuyNow' ? 'bg-success' : 'bg-secondary';
     let matchCard = `
       <div class="col mb-4">
         <div class="card h-100" style="height:700px;">
           <img src="/${match.matchimage}" class="card-img-top img-fluid" alt="${match.matchName}" style="height: 520px; object-fit: cover;">
           <div class="card-body">
             <h3 class="card-title">${match.matchName}</h3>
-            <p class="card-text"><strong>Status: </strong><span class="badge ${badgeColor}" onclick="handleClick('${match.status}')">${match.status}</span></p>
+            <p class="card-text"><strong>Status: </strong><span class="badge bg-success">${match.status}</span></p>
             <p class="card-text"><strong>Date: </strong>${new Date(match.date).toLocaleString()}</p>
             <p class="card-text"><strong>Venue: </strong>${match.venue}</p>
-            <p class="card-text"><strong>Available Seats: </strong>${match.availableSeats}</p> <!-- Show available seats -->
-            <p class="card-text">${match.description}</p>
+            <p class="card-text"><strong>Available Seats: </strong>${match.availableSeats}</p>
+            <button class="btn btn-primary" onclick="handleClick('${match.matchId}')">Manage Seats</button>
           </div>
         </div>
       </div>

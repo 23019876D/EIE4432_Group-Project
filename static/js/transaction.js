@@ -63,32 +63,44 @@ function displayTransactions(transactions) {
       ? `${transaction.cardnumber.slice(0, 4)}${'*'.repeat(transaction.cardnumber.length - 4)}`
       : 'N/A';
     const match = transaction.match;
+    const qrCodeHTML =
+      transaction.status === 'success'
+        ? `<img src="${transaction.ticketpass}" alt="Ticket Pass" style="max-width: 150px; max-height: 150px;">`
+        : '<p class="text-muted">No Ticket Available</p>';
     const transactionCard = `
-      <div class="col mb-4">
-        <div class="card h-100">
-          <div class="card-body">
-            <h3 class="card-title"><strong>Transaction Information</strong></h3>
-            <p class="card-text pt-3"><strong>Date: </strong>${new Date(transaction.transactiondate).toLocaleString()}</p>
-            <p class="card-text pt-2"><strong>Purchased Seat: </strong>${transaction.seat}</p>
-            <p class="card-text pt-2"><strong>Total Amount: </strong>${transaction.price} HKD</p>
-            <p class="card-text pt-2"><strong>Payment Status: </strong>${transaction.status}</p>
-            <p class="card-text pt-2"><strong>Card Number: </strong>${maskedCardNumber}</p>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title"><strong>Match Information</strong></h3>
-            ${
-              match
-                ? `
-                <p class="card-text pt-3"><strong>Match Name: </strong>${match.matchName}</p>
-                <p class="card-text pt-3"><strong>Match Date: </strong>${new Date(match.date).toLocaleString()}</p>
-                <p class="card-text pt-3"><strong>Venue: </strong>${match.venue}</p>
-                <p class="card-text pt-3"><strong>Description: </strong><br>${match.description}</p>
-              `
-                : '<p class="card-text">No match details available.</p>'
-            }
-          </div>
-        </div>
+      <div class="row">
+      <div class="col-md-8">
+      <div class="card mb-4">
+      <div class="card-body">
+        <h3 class="card-title"><strong>Transaction Information</strong></h3>
+        <p class="card-text pt-3"><strong>Date: </strong>${new Date(transaction.transactiondate).toLocaleString()}</p>
+        <p class="card-text pt-2"><strong>Purchased Seat: </strong>${transaction.seat}</p>
+        <p class="card-text pt-2"><strong>Total Amount: </strong>${transaction.price} HKD</p>
+        <p class="card-text pt-2"><strong>Payment Status: </strong>${transaction.status}</p>
+        <p class="card-text pt-2"><strong>Card Number: </strong>${maskedCardNumber}</p>
       </div>
+      <div class="card-body">
+        <h3 class="card-title"><strong>Match Information</strong></h3>
+        ${
+          match
+            ? `
+            <p class="card-text pt-3"><strong>Match Name: </strong>${match.matchName}</p>
+            <p class="card-text pt-3"><strong>Match Date: </strong>${new Date(match.date).toLocaleString()}</p>
+            <p class="card-text pt-3"><strong>Venue: </strong>${match.venue}</p>
+            <p class="card-text pt-3"><strong>Description: </strong><br>${match.description}</p>
+          `
+            : '<p class="card-text">No match details available.</p>'
+        }
+      </div>
+    </div>
+    </div>
+    <div class="col-md-4 d-flex align-items-center justify-content-center">
+        <div class="card-footer text-center">
+            <h4><strong>Ticket Pass</strong></h4>
+            ${qrCodeHTML}
+        </div>
+  </div>
+</div>
     `;
     $('#transaction-list').append(transactionCard);
   });

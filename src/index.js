@@ -5,8 +5,10 @@ import { fileURLToPath } from 'url';
 import loginRoute from './login.js';
 import matchRoute from './matches.js';
 import seatsRouter from './seats.js';
+import transactionRoute from './transactions.js';
 import mongostore from 'connect-mongo';
 import client from './dbclient.js';
+import eventRoutes from './events.js';
 
 const app = express();
 
@@ -33,6 +35,8 @@ app.use(
 app.use('/auth', loginRoute);
 app.use('/matches', matchRoute);
 app.use('/', seatsRouter);
+app.use('/trans', transactionRoute);
+app.use('/event', eventRoutes);
 app.use(express.static(path.join(__dirname, '../static')));
 
 app.get('/', (req, res) => {
